@@ -1,0 +1,219 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{xeCJK}
+\usepackage{hyperref}
+\usepackage{algorithm2e}
+\usepackage{amsfonts}
+\usepackage{epsfig}
+\usepackage{listings}
+\usepackage{xcolor}
+% 定义可能使用到的颜色
+
+\definecolor{CPPLight}  {HTML} {686868}
+\definecolor{CPPSteel}  {HTML} {888888}
+\definecolor{CPPDark}   {HTML} {262626}
+\definecolor{CPPBlue}   {HTML} {4172A3}
+\definecolor{CPPGreen}  {HTML} {487818}
+\definecolor{CPPBrown}  {HTML} {A07040}
+\definecolor{CPPRed}    {HTML} {AD4D3A}
+\definecolor{CPPViolet} {HTML} {7040A0}
+\definecolor{CPPGray}  {HTML} {B8B8B8}
+\lstset{
+    columns=fixed,
+    numbers=left,                                        % 在左侧显示行号
+    frame=none,                                          % 不显示背景边框
+    backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
+    keywordstyle=\color[RGB]{40,40,255},                 % 设定关键字颜色
+    numberstyle=\footnotesize\color{darkgray},           % 设定行号格式
+    commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
+    stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
+    showstringspaces=false,                              % 不显示字符串中的空格
+    language=c++,                                        % 设置语言
+    morekeywords={alignas,continute,friend,register,true,alignof,decltype,goto,
+    reinterpret_cast,try,asm,defult,if,return,typedef,auto,delete,inline,short,
+    typeid,bool,do,int,signed,typename,break,double,long,sizeof,union,case,
+    dynamic_cast,mutable,static,unsigned,catch,else,namespace,static_assert,using,
+    char,enum,new,static_cast,virtual,char16_t,char32_t,explict,noexcept,struct,
+    void,export,nullptr,switch,volatile,class,extern,operator,template,wchar_t,
+    const,false,private,this,while,constexpr,float,protected,thread_local,
+    const_cast,for,public,throw,std},
+}
+
+\graphicspath{{images/}}
+\setCJKmonofont{Microsoft YaHei}
+
+\title{\Huge{计算机算法设计与分析\\ 随机化算法}}
+\author{\Huge{易凯}}
+\date{\Huge{2017年5月28日}}
+
+\begin{document}
+    \maketitle
+    \vspace{35mm}
+    \begin{flushright}
+    \Large{
+    \textbf{班\ \ \ \ \ 级} \makebox[5em][l]{软件53班}
+
+    \textbf{学\ \ \ \ \ 号} \makebox[5em][l]{2151601053}
+
+    \textbf{邮\ \ \ \ \ 箱} \makebox[5em][l]{williamyi96@gmail.com}
+
+    \textbf{联系电话} \makebox[5em][l]{13772103675}
+
+    \textbf{个人网站} \makebox[5em][l]{https://williamyi96.github.io}
+
+                      \makebox[5em][l]{williamyi.tech}
+
+      \textbf{实验日期} \makebox[5em][l]{2017年5月28日}
+
+    \textbf{提交日期} \makebox[5em][l]{2017年6月6日}
+    }
+    \end{flushright}
+
+    \newpage
+  	\tableofcontents
+  	\newpage
+  	\listoffigures
+    \newpage
+
+    \section{学习基本目标}
+    1. 理解产生伪随机数的算法
+
+    2. 掌握数值概率算法的设计思想
+
+    3. 掌握蒙特卡洛算法的设计思想
+
+    4. 掌握拉斯维加斯算法的设计思想
+
+    5. 掌握舍伍德算法的设计思想
+
+    \section{随机化算法类型}
+    随机化算法共有四大类。分别为数值随机化算法，蒙特卡洛算法，拉斯维加斯算法和舍伍德算法。
+    \subsection{数字随机算法}
+    数值随机算法往往得到的是问题的近似解，其解的精度随计算时间的增加而不断提高。
+    \subsection{蒙特卡洛算法}
+    求问题的精确解，但是不保证得到的解的正确性。算法所用的时间越多，得到的正确解的概率越高。
+    \subsection{拉斯维加斯算法}
+    拉斯维加斯算法不会得到不正确的解，但是可能找不到解。其找到正确解的概率随着所用计算时间的增加而提升。
+    \subsection{舍伍德算法}
+    舍伍德算法总能求得问题的一个解，且所求的解总是正确的。它设法消除的是最坏情形行为与特定实例之间的关联性。
+    \section{随机化计算}
+    \subsection{题目描述}
+    试设计一个随机化算法计算$365!/340!\ 365^{25}$, 并精确到4位有效数字。
+    \subsection{题目解答}
+    此题是生日问题的实例化，可以使用Stirling公式进行近似：
+    
+    $n!=\sqrt{2\pi n} (\frac{n}{e}) [1 + \theta(\frac{1}{n})]$
+    
+    可以得到
+    
+    $n!/[(n-k)!n^k]\approx e^{-k^2/(2n)}$
+    
+    进一步求解得到：
+    
+    $n!/[(n-k)!n^k]\approx e^{-k(k-1)(2n-k^3)/(6n^2)\pm O(max(k^2/n^2), k^4/n^3)}$
+    
+    最后带入n=365，k=25得到原式的大小为0.4311。
+    
+    \section{易验证问题的算法}
+    \subsection{问题描述}
+    一个问题是易验证的是指对该问题的给定实例的每一个解，都可以有效地验证其正确性。例如：求一个整数的非平凡因子问题是易验证的，而求一个整数的最小平凡因子就不是易验证的。在一般情况下，易验证问题未必是易解的。
+
+    1. 给定一个解易验证问题P的蒙特卡洛方法，设计一个相应的解问题P的拉斯维加斯算法；
+
+    2. 给定一个解易验证问题P的拉斯维加斯算法，设计一个相应的界问题P的蒙特卡洛算法。
+    \subsection{问题解答}
+    如果给定一个解易验证问题P的MC，设计一个相应的解问题P的LV如下(验证其正确性的算法为Prove())：
+    
+    \begin{small}
+    \begin{lstlisting}
+    void Lv(LP x) {
+        bool l = Mc(x);
+        while(!Prove(x,l)) l = Mc(x);
+    }
+    \end{lstlisting}
+    \end{small}
+    
+    如果给定一个解易验证问题P的LV,设计一个相应的解问题P的MC如下:
+    
+    \begin{small}
+    \begin{lstlisting}
+    bool Mc(LP x) {
+        Lv(x);
+        if(timeused > maxt) return false;
+        else return true;
+    }
+    \end{lstlisting}
+    \end{small}
+    
+    \section{整数因子分解}
+    \subsection{题目描述}
+    假设已有一个算法Prime(n)可用于测试整数n是否为一个素数。另外还有一个算法Split(n)可以实现对合数n的因子分割。试利用这两个算法设计一个对给定整数n进行因子分解的算法。
+    \subsection{问题解答}
+    结合两个算法实现的对给定整数n的因子分解如下：
+    
+    \begin{small}
+    \begin{lstlisting}
+    void fact(int n) {
+        if(Prime(n)) {output(n); return;}
+        int i = Split(n);
+        if(i > 1) fact(i);
+        if(n > i) fact(n/i);
+    }
+    \end{lstlisting}
+    \end{small}
+    
+    
+    \section{算法的正确率}
+    \subsection{题目描述}
+    设mc(x)是一致的75\% 正确的蒙特卡洛算法，考虑下面的算法：
+
+    \begin{small}
+    \begin{lstlisting}
+    mc3(x) {
+        int t, u, v;
+        t = mc(x);
+        u = mc(x);
+        v = mc(x);
+        if((t==u) || (t==v)) return t;
+        return v;
+    \end{lstlisting}
+    \end{small}
+
+    1. 试证明上述算法mc3(x)是一致的27/32正确的算法，因此是84\%正确的。
+
+    2. 试证明如果mc(x)不是一致的，则mc3(x)的正确率可能低于71\%。
+    \subsection{问题解答}
+    由于MC返回的为bool类型，因此要么其正确，要么不正确。由上述的t==u和t==v的条件分析可以知道，一方面重复三次MC得到的各次正确的分布为000,001,010,011,100,101,110,111。
+    
+    其中011, 101, 110, 111可以返回正确解，从而返回正确解的概率为：
+    
+    $0.25*0.75*0.75 + 0.75*0.25*0.75 + 0.75*0.75*0.25 + 0.75*0.75*0.75 = \frac{27}{32}$。
+    
+    对于第二问，如果MC(x)是非一致的，那么101不能够保证返回正确解，从而返回正确解的概率可能为：
+    
+    $0.25*0.75*0.75 + 0.75*0.75*0.25 + 0.75*0.75*0.75 = 0.703 < 0.71$,
+    
+    因而MC(x)不一致，算法的正确率可能低于0.71.
+    
+    \section{基于蒙特卡洛算法设计拉斯维加斯算法}
+    \subsection{题目描述}
+    设算法A和B是解统一判定问题的两个有效的蒙特卡洛算法。算法A是p正确偏真算法，算法B是q正确偏假算法。试利用这两个算法设计一个解同一个问题的拉斯维加斯算法，并使所得到的算法对任何实例的成功率尽可能高。
+    \subsection{题目解答}
+    成功率最高的方法类似于将两者或起来。
+    
+    \begin{small}
+    \begin{lstlisting}
+    bool Lv(LP x) {
+        while(1) {
+            if(A(x)) return true;
+            if(!B(x)) return false;
+        }
+    }
+    \end{lstlisting}
+    \end{small}
+
+
+\end{document} 

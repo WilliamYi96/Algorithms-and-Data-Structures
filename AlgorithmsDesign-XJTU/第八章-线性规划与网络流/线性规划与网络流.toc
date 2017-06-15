@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}线性规划基本定理}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}线性规划基本定理}{4}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}单纯型法基本思路}{4}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}单纯型法的特点}{4}{subsection.1.3}
+\contentsline {section}{\numberline {2}最大网络流问题}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}网络流}{4}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}可行流}{4}{subsection.2.2}
+\contentsline {paragraph}{容量约束}{4}{paragraph*.3}
+\contentsline {paragraph}{平衡约束}{4}{paragraph*.4}
+\contentsline {paragraph}{边流}{4}{paragraph*.5}
+\contentsline {paragraph}{最大流}{5}{paragraph*.6}
+\contentsline {paragraph}{流的费用}{5}{paragraph*.7}

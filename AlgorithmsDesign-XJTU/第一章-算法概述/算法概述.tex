@@ -1,0 +1,173 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{xeCJK}
+\usepackage{hyperref}
+\usepackage{algorithm2e}
+\usepackage{amsfonts}
+\usepackage{epsfig}
+\usepackage{listings}
+\usepackage{xcolor}
+% 定义可能使用到的颜色
+
+\definecolor{CPPLight}  {HTML} {686868}
+\definecolor{CPPSteel}  {HTML} {888888}
+\definecolor{CPPDark}   {HTML} {262626}
+\definecolor{CPPBlue}   {HTML} {4172A3}
+\definecolor{CPPGreen}  {HTML} {487818}
+\definecolor{CPPBrown}  {HTML} {A07040}
+\definecolor{CPPRed}    {HTML} {AD4D3A}
+\definecolor{CPPViolet} {HTML} {7040A0}
+\definecolor{CPPGray}  {HTML} {B8B8B8}
+\lstset{
+    columns=fixed,
+    numbers=left,                                        % 在左侧显示行号
+    frame=none,                                          % 不显示背景边框
+    backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
+    keywordstyle=\color[RGB]{40,40,255},                 % 设定关键字颜色
+    numberstyle=\footnotesize\color{darkgray},           % 设定行号格式
+    commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
+    stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
+    showstringspaces=false,                              % 不显示字符串中的空格
+    language=c++,                                        % 设置语言
+    morekeywords={alignas,continute,friend,register,true,alignof,decltype,goto,
+    reinterpret_cast,try,asm,defult,if,return,typedef,auto,delete,inline,short,
+    typeid,bool,do,int,signed,typename,break,double,long,sizeof,union,case,
+    dynamic_cast,mutable,static,unsigned,catch,else,namespace,static_assert,using,
+    char,enum,new,static_cast,virtual,char16_t,char32_t,explict,noexcept,struct,
+    void,export,nullptr,switch,volatile,class,extern,operator,template,wchar_t,
+    const,false,private,this,while,constexpr,float,protected,thread_local,
+    const_cast,for,public,throw,std},
+}
+
+\graphicspath{{images/}}
+\setCJKmonofont{Microsoft YaHei}
+
+\title{\Huge{计算机算法设计与分析之\\ 算法概述}}
+\author{\Huge{易凯}}
+\date{\Huge{2017年3月26日}}
+
+\begin{document}
+	\maketitle
+	\vspace{35mm}
+	\begin{flushright}
+	\Large{
+  	\textbf{班\ \ \ \ \ 级} \makebox[5em][l]{软件53班}
+
+  	\textbf{学\ \ \ \ \ 号} \makebox[5em][l]{2151601053}
+
+  	\textbf{邮\ \ \ \ \ 箱} \makebox[5em][l]{williamyi96@gmail.com}
+
+  	\textbf{联系电话} \makebox[5em][l]{13772103675}
+
+  	\textbf{个人网站} \makebox[5em][l]{https://williamyi96.github.io}
+
+                      \makebox[5em][l]{williamyi.tech}
+	
+	  \textbf{实验日期} \makebox[5em][l]{2017年3月26日}
+
+  	\textbf{提交日期} \makebox[5em][l]{2017年6月6日}
+  	}
+  	\end{flushright}
+
+  	\newpage
+  	\tableofcontents
+  	\newpage
+
+    \section{重点掌握内容}
+    \subsection{算法与程序}
+    \paragraph{算法}
+
+    算法是由若干条指令组成的有穷序列。
+
+    其具有的特点是：
+
+    \subparagraph{1. 输入}
+    \subparagraph{2. 输出}
+    \subparagraph{3. 确定性}
+    \subparagraph{4. 有限性}
+
+    \paragraph{程序}
+
+    程序就是算法用某种程序设计语言进行的具体实现。其可以不满足算法的性质4，也就是算法的有限性。
+
+    \subsection{算法复杂度分析}
+
+    衡量算法复杂度的指标是在理想抽象计算机上运行某一算法所需资源消耗量的大小。而资源消耗量包含了时间复杂度和空间复杂度两个层面的内容。
+
+    其中值得注意的是三种，最坏时间，最好时间和平均时间：
+
+    \paragraph{最坏时间}: $ T(N,I) = max _{I \in D_N } T(N, I) = T(N, I^+)$
+
+    \paragraph{最好时间}: $ T(N,I) = min _{I \in D_N } T(N, I) = T(N, I^-)$
+
+    \paragraph{平均时间}: $T(N,I) = \sum_{I\in D_N }  \ P(I) T(N, I)$
+
+    算法复杂度一般采用渐进性分析的方式进行。其中，渐进符号有$O, \Omega, \Theta, o, \omega$这五种，关于其基础性的定义较为简单，在此不进行赘述。其中带等号的两个中的常量是\textbf{存在}，而不带等号的两个中的常量是对于任意给定的常量。
+
+    其中有两个small tricks:
+
+    1. $o: f(n) < c g(n)  \Rightarrow \frac{f(n)}{g(n)} < c \Rightarrow \frac{f(n)}{g(n)} \to 0 $
+
+    ~
+
+    2. $\omega: c g(n) < f(n)  \Rightarrow \frac{f(n)}{g(n)} > c \Rightarrow \frac{f(n)}{f(n)} \to \infty$
+
+    \subsection{NP完全性理论}
+
+    一般来说，在多项式时间内可以求解的问题称之为易解问题，而将需要超过多项式时间才能求解的问题称之为难解问题。
+
+    为了研究难解问题的计算复杂性，人们提出了非确定性图灵机计算模型。
+
+    值得注意的是，书中探讨的许多问题都是以最优化的形式给出的，而对于每一个最优化问题，都有一个与之对应的判定问题。
+
+    所有可以在多项式时间内求解的判定问题构成了P类问题。通常情况下，解一个问题要比验证一个问题的一个解困难得多。P类问题是确定性计算模型之下的易解问题类，而NP类问题是非确定性计算模型之下的已验证问题类。所有非确定性多项式时间可解的判定问题构成NP类问题。P与NP的关系暂时没有一个很好的解答，目前而言，存在一类被称之为NP完全的问题，也就是NPC问题，其具有一个很特殊的性质就是如果一个NP完成问题能在多项式时间内得到解决，那么NP中的每一个问题都可以在多项式时间内求解，也就是N = NP。
+
+    \section{典型题详解}
+    \subsection{算法复杂性分析问题}
+    \paragraph{试题描述}
+
+    对于下列给定各组函数f(n)和g(n),确定$f(n) = O(g(n))$ 或者$ f(n) = \Omega (g(n)) $ 或者 $f(n) = \Theta(g(n))$，并阐述理由。
+
+    \paragraph{试题解答}
+
+    理由的阐述由相关的定义来得到。以下仅根据典型性的例子进行分析：
+
+    \subparagraph{证明： $f(n) = \Theta g(n)， f(n)=logn^2, g(n)=log n + 5$}
+    
+    ~
+
+    首先证明$f(n) = O(g(n))$
+
+    当$c=2,n_0=1$时，n > $n_0$ f(n) < c g(n) 恒成立。
+
+    然后证明$f(n) = \Omega (g(n))$
+
+    当$c=1,n_0=10^5$时，对 n > $n_0$ c g(n) < f(n) 恒成立。
+
+    综上所述，   $f(n) = \Theta g(n)$
+
+    \subsection{证明$n!=o(n^n)$}
+
+    此处需要使用斯特林似然公式： $n!=\sqrt{2\pi n}(\frac{n}{e})^n(1+\Theta(\frac{1}{n}))$,
+
+    此题用$o: f(n) < c g(n)  \Rightarrow \frac{f(n)}{g(n)} < c \Rightarrow \frac{f(n)}{g(n)} \to 0 $ 即可证明。
+
+    \subsection{由平均计算复杂性推导最坏情况复杂性}
+
+    \paragraph{题目分析}
+
+    如果一个算法在平均情况下的计算时间复杂性为$\Theta (f(n))$, 则该算法在最坏情况下所需的计算时间为$\Omega (f(n))$。
+
+    \paragraph{题目求解}
+
+    该题目的求解方式是通过将所有对应的合法输入转变为对应的最坏输入情况，通过放缩进行求解：
+
+    $T_{avg}(N) \\ \qquad \qquad = \sum_{I \in D_N} P(I) T(N,I) \\ \qquad \qquad \leq  \sum_{I \in D_N} P(I) max _{I' \in D_N} T(N, I') \\ \qquad \qquad = T(N, I+) \sum_{I \in D_N} P(I) \\ \qquad \qquad = T(N, I+) \\ \qquad \qquad = T_{max} {N}$
+
+    因此有 $T_{max}(N) = \Omega (T_{avg}(N)) = \Omega (\Theta (f(n))) = \Omega (f(n))$。
+
+
+\end{document} 

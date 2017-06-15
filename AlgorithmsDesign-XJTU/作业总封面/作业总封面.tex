@@ -1,0 +1,142 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{xeCJK}
+\usepackage{hyperref}
+\usepackage{algorithm2e}
+\usepackage{amsfonts}
+\usepackage{epsfig}
+\usepackage{listings}
+\usepackage{xcolor}
+% 定义可能使用到的颜色
+
+\definecolor{CPPLight}  {HTML} {686868}
+\definecolor{CPPSteel}  {HTML} {888888}
+\definecolor{CPPDark}   {HTML} {262626}
+\definecolor{CPPBlue}   {HTML} {4172A3}
+\definecolor{CPPGreen}  {HTML} {487818}
+\definecolor{CPPBrown}  {HTML} {A07040}
+\definecolor{CPPRed}    {HTML} {AD4D3A}
+\definecolor{CPPViolet} {HTML} {7040A0}
+\definecolor{CPPGray}  {HTML} {B8B8B8}
+\lstset{
+    columns=fixed,
+    numbers=left,                                        % 在左侧显示行号
+    frame=none,                                          % 不显示背景边框
+    backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
+    keywordstyle=\color[RGB]{40,40,255},                 % 设定关键字颜色
+    numberstyle=\footnotesize\color{darkgray},           % 设定行号格式
+    commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
+    stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
+    showstringspaces=false,                              % 不显示字符串中的空格
+    language=c++,                                        % 设置语言
+    morekeywords={alignas,continute,friend,register,true,alignof,decltype,goto,
+    reinterpret_cast,try,asm,defult,if,return,typedef,auto,delete,inline,short,
+    typeid,bool,do,int,signed,typename,break,double,long,sizeof,union,case,
+    dynamic_cast,mutable,static,unsigned,catch,else,namespace,static_assert,using,
+    char,enum,new,static_cast,virtual,char16_t,char32_t,explict,noexcept,struct,
+    void,export,nullptr,switch,volatile,class,extern,operator,template,wchar_t,
+    const,false,private,this,while,constexpr,float,protected,thread_local,
+    const_cast,for,public,throw,std},
+}
+
+\graphicspath{{images/}}
+\setCJKmonofont{Microsoft YaHei}
+
+\title{\Huge{计算机算法设计与分析}}
+\author{\Huge{易凯}}
+\date{\Huge{2017年3月15日}}
+
+\begin{document}
+    \maketitle
+    \vspace{35mm}
+    \begin{flushright}
+    \Large{
+    \textbf{班\ \ \ \ \ 级} \makebox[5em][l]{软件53班}
+
+    \textbf{学\ \ \ \ \ 号} \makebox[5em][l]{2151601053}
+
+    \textbf{邮\ \ \ \ \ 箱} \makebox[5em][l]{williamyi96@gmail.com}
+
+    \textbf{联系电话} \makebox[5em][l]{13772103675}
+
+    \textbf{个人网站} \makebox[5em][l]{https://williamyi96.github.io}
+
+                      \makebox[5em][l]{williamyi.tech}
+
+    \textbf{项目地址} \makebox[5em][l]{\small{https://github.com/WilliamYi96/algorithms}}
+
+    \textbf{提交日期} \makebox[5em][l]{2017年6月6日}
+    }
+    \end{flushright}
+
+    \newpage
+
+    \section{声明}
+    此系列为西安交通大学本科生易凯于2017年4月到6月针对《计算机算法设计与分析》课程学习的基础之上，对于相关重要知识点的总结与归纳，同时涵盖了该学期所有的习题解答。未经允许，禁止挪作他用。由于本人能力有限，因此该归纳总结不乏有许多缺漏之处，敬请读者批评指正。相关源程序，测试样例以及每章的tex以及pdf格式文件均上传到个人GitHub。地址为：https://github.com/WilliamYi96/algorithms
+
+    \newpage
+    \section{反思总结}
+    半个学期的《计算机算法设计与分析》课程的学习就这样结束了，同时也是田暄老师交给我们的最后一次课了，这门课是《算法与数据结构》的延续，对于我之后的学习发展产生了较为深远的影响。不过当我大二时由于参加了多个竞赛以及进行科研训练，包括其他课程的学业压力，再也没有时间像大一一样去将一个问题去穷根问底了，但是这为其十余周的算法设计与分析的学习仍然让我收获良多，感慨良多。
+
+   	我将从\textbf{能力提升}，\textbf{意识培养}，\textbf{认识不足}，\textbf{兴趣提升}，\textbf{注重想法}，\textbf{敢于开拓}这六个角度进行归纳总结：
+
+   	\subsection{能力提升}
+   	学习算法设计与分析的过程中，让我第一次觉得用计算机求解相关的现实问题有一步并不是很难，同时也十分有趣。同时算法的包括递归、分治、动态规划等思想，本身就存在于我们生活的方方面面，尽管算法很难以理解并进行灵活运用，但我在算法设计与分析的学习过程中发现自我的分析问题解决问题能力得到了较大的提升。
+
+   	\subsection{意识培养}
+   	田老师上课反复强调，算法设计与分析培养的是大家的能力，是大家的按照算法设计与分析基本流程进行分析问题，解决问题的意识，这种意识才是比知识更为重要的东西。老师在课堂之上循循善诱，逐步地引导我们某个算法得到核心思想是怎样建立起来的，同时又会经历哪些修正，同时又是如何去提升算法的性能。在这个过程中，培养了自己的算法的分析意识。
+
+   	\subsection{认识不足}
+   	在算法设计与分析课程的学习过程中，这段经历总体而言是非常有趣的，很多的老师精选的例题不仅具有代表性，同时不乏趣味性，让我打开眼界，原来，有时候计算机算法还可以这样用，原来实际问题可以用这么普通但是这么实用的方式去解决问题。
+
+   	在完成实验报告的过程中，总体思路还是挺顺畅的，但是实际地单独对于某些问题进行系统分析的过程之中，发现实际上遇到了一些阻碍，同时也说明了自己的能力有待提升。看到课外拓展的一些题，更具有挑战性，之后要加强这方面能力的提升以及强化训练。
+
+   	\subsection{兴趣提升}
+   	算法设计与分析个人认为更多的就是将对应的典型性算法进行灵活组合并加以运用来解决实际问题的一个过程，在这个过程中，遇到了很多新奇有趣的题目，同时也运用了许多让人眼前一亮的方法，极大地提升了自己进一步学习算法，并提升算法分析与设计能力的兴趣。
+
+   	\subsection{注重想法}
+    算法设计与分析的核心可以认为是在积累了相关典型性算法的基础之上，综合运用多种方法的组合，以正确解决问题为基础，提升解题时间以及空间资源效率为目标，对于实际问题进行分析求解。因此需要敢于去提出自己的想法，然后不断地优化，以期臻于完美。
+
+   	\subsection{敢于开拓}
+   	算法设计与分析的一个很重要的原则是，没有最好，只有更好，因此只有不断地去修正，不断地去开拓创新，才能够不断地提升模型的性能。
+
+   	同时，其他课程以及科研训练的真谛也在于此，真正的魅力不在于我马上就可以找到解决问题的最好方法，而是在不断地摸索中，提升了个人的能力，培养了开拓创新的精神，这才是社会赖以生存发展的本质意义。
+    \section{致谢}
+    Give my sincere thanks to Teacher Tian for his excellent teaching skills and serious altitude for our homework. Give my sincere thanks to some students who have helped me and who have inspired me when discussing with them. Give my sincere thanks to myself because I've overcome all difficulties and have successfully finished my algorithms design and implementations assignments and made a summary. Give my sincere thanks to those pioneers who have devoted themselves to writing immortal books. Give my sincere thanks to all the people sharing their ideas and harvests without pay in QA communities.
+
+    衷心感谢田暄老师出色的教学风范以及严谨的治学态度，衷心感谢那些在讨论中帮助和启发我的同学们，衷心感谢克服了种种困难最终完成了算法设计与分析作业以及重点内容归纳总结的自己，衷心感谢那些写了不朽著作为后人指明道路的先驱们，衷心感谢那些在问答社区无私奉献自己智慧成果的所有同仁！
+
+    \section{参考文献}
+    1. Thomas H.Cormen, Charles E.Leiserson, Ronald L.Rivest, Clifford Stein. Introduction to Algorithms.
+
+    2. 王晓东. 计算机算法设计与分析(第四版). 电子工业出版社.
+
+    3. 田暄. 计算机算法设计与分析ppt. 西安: 西安交通大学.
+
+    4. Robert Sedgewick, Kevin Wayne. Algorithms(Fourth Edition). Princeton Press.
+
+    5. Ravindra K. Ahuja, Kurt Mehlhorn, James B. Orlin, and Robert E. Tarjan. Faster algorithms for the shortest path problem. Journal of the ACM,37:213–223, 1990.
+
+    6. Mohamad Akra and Louay Bazzi. On the solution of linear recurrence equations. Computational Optimization and Applications, 10(2):195–210, 1998.
+
+    7. Arne Andersson. Balanced search trees made simple. In Proceedings of the Third Workshop on Algorithms and Data Structures, volume 709 of Lecture Notes in Computer Science, pages 60–71. Springer, 1993.
+
+    8. B´ela Bollob´as. Random Graphs. Academic Press, 1985.
+
+    9. Zvi Galil and Kunsoo Park. Dynamic programming with convexity, concavity and sparsity. Theoretical Computer Science, 92(1):49–76, 1992.
+
+    10. D. Goldfarb and M. J. Todd. Linear programming. In G. L. Nemhauser, A. H. G. Rinnooy-Kan, and M. J. Todd, editors, Handbook in Operations Research and Management Science,Vol. 1, Optimization, pages 73–170. Elsevier Science Publishers, 1989.
+    
+    11. Valerie King. A simpler minimum spanning tree verification algorithm. Algorithmica,18(2):263–270, 1997.
+    
+    12. Michael Sipser. Introduction to the Theory of Computation. Thomson Course Technology,second edition, 2006.
+    
+    13. Mark AllenWeiss. Data Structures and Algorithm Analysis in C++. Addison-Wesley, third edition, 2007.
+    
+    14. Herbert S. Wilf. Algorithms and Complexity. A K Peters, second edition, 2002.
+    
+    15. Vijay V. Vazirani. Approximation Algorithms. Springer, 2001.
+\end{document}

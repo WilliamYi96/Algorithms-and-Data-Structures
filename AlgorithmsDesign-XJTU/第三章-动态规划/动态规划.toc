@@ -1,0 +1,49 @@
+\contentsline {section}{\numberline {1}基本声明}{5}{section.1}
+\contentsline {section}{\numberline {2}DP问题的基本方法}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}DP概念}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}动态规划算法的实现步骤}{5}{subsection.2.2}
+\contentsline {section}{\numberline {3}最长单调递增子序列}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}题目描述}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}试题分析}{5}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}算法实现}{6}{subsection.3.3}
+\contentsline {paragraph}{Java实现}{6}{lstlisting.-1}
+\contentsline {paragraph}{Cpp实现}{7}{lstlisting.-2}
+\contentsline {section}{\numberline {4}编辑距离问题}{8}{section.4}
+\contentsline {subsection}{\numberline {4.1}问题描述}{8}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}数据输入与结果输出}{9}{subsection.4.2}
+\contentsline {paragraph}{数据输入}{9}{paragraph*.5}
+\contentsline {paragraph}{结果输出}{9}{paragraph*.6}
+\contentsline {subsection}{\numberline {4.3}算法分析与设计}{9}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}代码实现}{9}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}运行结果}{10}{subsection.4.5}
+\contentsline {section}{\numberline {5}数字三角形问题}{10}{section.5}
+\contentsline {subsection}{\numberline {5.1}问题描述}{10}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}数据输入与结果输出}{10}{subsection.5.2}
+\contentsline {paragraph}{数据输入}{10}{paragraph*.7}
+\contentsline {paragraph}{结果输出}{11}{paragraph*.8}
+\contentsline {subsection}{\numberline {5.3}算法分析与设计}{11}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}代码实现}{11}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}反思总结}{11}{subsection.5.5}
+\contentsline {section}{\numberline {6}汽车加油行驶问题}{12}{section.6}
+\contentsline {subsection}{\numberline {6.1}问题描述}{12}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}算法设计}{12}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}输入与输出}{12}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}算法分析}{12}{subsection.6.4}
+\contentsline {subsection}{\numberline {6.5}程序实现}{12}{subsection.6.5}
+\contentsline {subsection}{\numberline {6.6}结果示例}{14}{subsection.6.6}
+\contentsline {section}{\numberline {7}最少费用购物问题}{14}{section.7}
+\contentsline {subsection}{\numberline {7.1}习题描述}{14}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}算法设计}{15}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}数据输入}{15}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}数据输出}{16}{subsection.7.4}
+\contentsline {subsection}{\numberline {7.5}分析}{16}{subsection.7.5}
+\contentsline {subsection}{\numberline {7.6}代码实现}{16}{subsection.7.6}
+\contentsline {subsection}{\numberline {7.7}样例测试}{18}{subsection.7.7}
+\contentsline {section}{\numberline {8}收集样本问题}{18}{section.8}
+\contentsline {subsection}{\numberline {8.1}习题描述}{18}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}算法设计}{19}{subsection.8.2}
+\contentsline {subsection}{\numberline {8.3}数据输入}{19}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.4}数据输出}{19}{subsection.8.4}
+\contentsline {subsection}{\numberline {8.5}代码实现}{19}{subsection.8.5}
+\contentsline {subsection}{\numberline {8.6}样例测试}{21}{subsection.8.6}
+\contentsline {section}{\numberline {9}参考资料}{21}{section.9}

@@ -1,0 +1,22 @@
+\contentsline {section}{\numberline {1}重点掌握内容}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}算法与程序}{3}{subsection.1.1}
+\contentsline {paragraph}{算法}{3}{paragraph*.2}
+\contentsline {subparagraph}{1. 输入}{3}{subparagraph*.3}
+\contentsline {subparagraph}{2. 输出}{3}{subparagraph*.4}
+\contentsline {subparagraph}{3. 确定性}{3}{subparagraph*.5}
+\contentsline {subparagraph}{4. 有限性}{3}{subparagraph*.6}
+\contentsline {paragraph}{程序}{3}{paragraph*.7}
+\contentsline {subsection}{\numberline {1.2}算法复杂度分析}{3}{subsection.1.2}
+\contentsline {paragraph}{最坏时间}{3}{paragraph*.8}
+\contentsline {paragraph}{最好时间}{3}{paragraph*.9}
+\contentsline {paragraph}{平均时间}{3}{paragraph*.10}
+\contentsline {subsection}{\numberline {1.3}NP完全性理论}{4}{subsection.1.3}
+\contentsline {section}{\numberline {2}典型题详解}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}算法复杂性分析问题}{4}{subsection.2.1}
+\contentsline {paragraph}{试题描述}{4}{paragraph*.11}
+\contentsline {paragraph}{试题解答}{4}{paragraph*.12}
+\contentsline {subparagraph}{证明： $f(n) = \Theta g(n)， f(n)=logn^2, g(n)=log n + 5$}{4}{subparagraph*.13}
+\contentsline {subsection}{\numberline {2.2}证明$n!=o(n^n)$}{5}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}由平均计算复杂性推导最坏情况复杂性}{5}{subsection.2.3}
+\contentsline {paragraph}{题目分析}{5}{paragraph*.14}
+\contentsline {paragraph}{题目求解}{5}{paragraph*.15}

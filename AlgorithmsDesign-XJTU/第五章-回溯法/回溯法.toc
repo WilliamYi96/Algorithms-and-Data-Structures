@@ -1,0 +1,26 @@
+\contentsline {section}{\numberline {1}回溯法基本框架}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}问题的解空间}{4}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}回溯法基本思想}{4}{subsection.1.2}
+\contentsline {paragraph}{扩展结点：}{4}{paragraph*.3}
+\contentsline {paragraph}{活结点：}{4}{paragraph*.4}
+\contentsline {paragraph}{死结点：}{4}{paragraph*.5}
+\contentsline {paragraph}{回溯法解题基本步骤}{4}{paragraph*.6}
+\contentsline {subsection}{\numberline {1.3}递归回溯与迭代回溯}{4}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}子集树和排列树}{5}{subsection.1.4}
+\contentsline {paragraph}{子集树：}{5}{paragraph*.7}
+\contentsline {paragraph}{排列树：}{5}{paragraph*.8}
+\contentsline {section}{\numberline {2}回溯法效率的依赖要素}{5}{section.2}
+\contentsline {section}{\numberline {3}装载问题回溯法改进}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}题目描述}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}代码实现}{5}{subsection.3.2}
+\contentsline {section}{\numberline {4}有向图回溯方法}{6}{section.4}
+\contentsline {subsection}{\numberline {4.1}题目描述}{6}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}问题证明}{6}{subsection.4.2}
+\contentsline {section}{\numberline {5}排列宝石问题}{6}{section.5}
+\contentsline {subsection}{\numberline {5.1}题目描述}{6}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}算法设计}{6}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}数据输入}{6}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}数据输出}{7}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}问题分析}{7}{subsection.5.5}
+\contentsline {subsection}{\numberline {5.6}代码描述}{7}{subsection.5.6}
+\contentsline {subsection}{\numberline {5.7}样例测试}{9}{subsection.5.7}

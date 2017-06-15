@@ -1,0 +1,713 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{xeCJK}
+\usepackage{hyperref}
+\usepackage{algorithm2e}
+\usepackage{amsfonts}
+\usepackage{epsfig}
+\usepackage{listings}
+\usepackage{xcolor}
+% 定义可能使用到的颜色
+
+\definecolor{CPPLight}  {HTML} {686868}
+\definecolor{CPPSteel}  {HTML} {888888}
+\definecolor{CPPDark}   {HTML} {262626}
+\definecolor{CPPBlue}   {HTML} {4172A3}
+\definecolor{CPPGreen}  {HTML} {487818}
+\definecolor{CPPBrown}  {HTML} {A07040}
+\definecolor{CPPRed}    {HTML} {AD4D3A}
+\definecolor{CPPViolet} {HTML} {7040A0}
+\definecolor{CPPGray}  {HTML} {B8B8B8}
+\lstset{
+    columns=fixed,
+    numbers=left,                                        % 在左侧显示行号
+    frame=none,                                          % 不显示背景边框
+    backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
+    keywordstyle=\color[RGB]{40,40,255},                 % 设定关键字颜色
+    numberstyle=\footnotesize\color{darkgray},           % 设定行号格式
+    commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
+    stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
+    showstringspaces=false,                              % 不显示字符串中的空格
+    language=c++,                                        % 设置语言
+    morekeywords={alignas,continute,friend,register,true,alignof,decltype,goto,
+    reinterpret_cast,try,asm,defult,if,return,typedef,auto,delete,inline,short,
+    typeid,bool,do,int,signed,typename,break,double,long,sizeof,union,case,
+    dynamic_cast,mutable,static,unsigned,catch,else,namespace,static_assert,using,
+    char,enum,new,static_cast,virtual,char16_t,char32_t,explict,noexcept,struct,
+    void,export,nullptr,switch,volatile,class,extern,operator,template,wchar_t,
+    const,false,private,this,while,constexpr,float,protected,thread_local,
+    const_cast,for,public,throw,std},
+}
+
+\graphicspath{{images/}}
+\setCJKmonofont{Microsoft YaHei}
+
+\title{\Huge{计算机算法设计与分析之\\ 递归与分治策略}}
+\author{\Huge{易凯}}
+\date{\Huge{2017年4月1日}}
+
+\begin{document}
+	\maketitle
+	\vspace{35mm}
+	\begin{flushright}
+	\Large{
+  	\textbf{班\ \ \ \ \ 级} \makebox[5em][l]{软件53班}
+
+  	\textbf{学\ \ \ \ \ 号} \makebox[5em][l]{2151601053}
+
+  	\textbf{邮\ \ \ \ \ 箱} \makebox[5em][l]{williamyi96@gmail.com}
+
+  	\textbf{联系电话} \makebox[5em][l]{13772103675}
+
+  	\textbf{个人网站} \makebox[5em][l]{https://williamyi96.github.io}
+
+                      \makebox[5em][l]{williamyi.tech}
+	
+	  \textbf{实验日期} \makebox[5em][l]{2017年4月1日}
+
+  	\textbf{提交日期} \makebox[5em][l]{2017年6月6日}
+  	}
+  	\end{flushright}
+
+  	\newpage
+  	\tableofcontents
+  	\newpage
+
+    \section{重点掌握内容}
+    \subsection{递归概念及其使用}
+    
+    递归思想的核心是\textbf{分而治之}。其中，递归就是直接或者间接地调用自身的算法。其优势是递归算法结构清晰，可读性强，且容易用数学归纳法证明算法的正确性。而其运行效率相对较低，无论是耗费的计算时间还是占用的存储空间都比非递归算法要多。因此，提升此类问题运行效率的关键在于消除递归调用，将其转变为非递归算法。
+    
+    \paragraph{在一个算法调用另一个算法之前，系统需要完成三件事：}
+    
+    1. 将所有实参指针、返回地址等信息传递给被调用算法；
+    
+    2. 为被调用算法的局部变量分配存储区；
+    
+    3. 将控制转移到被调用算法的入口。
+    
+    \paragraph{在从被调用算法返回调用算法时，需要完成三件事情：}
+    
+    1. 保存被调用算法的计算结果；
+    
+    2. 释放分配给被调用算法的数据区；
+    
+    3. 依照被调用算法保存的返回地址将控制转移到调用算法
+    
+    \subsection{分治法基本思想}
+    
+    \begin{lstlisting}[language=c++]
+    divide-and-conquer(P) {
+        if (P <= n0) adhoc(P);
+        divide P into smaller subinstances P1, P2, P3, P4,..., Pk
+        for (i=1; i<=k; i++)
+            yi = divide-and-conquer(Pi);
+        return merge(y1,y2,...,yk);
+    }
+    \end{lstlisting}
+    
+    
+
+    \section{典型题详解}
+    \subsection{二分搜索正确性判断}
+    \paragraph{题目描述}
+
+    下面的7个算法与本章中的二分搜索算法BinarySearch略有不同。试判断这7个算法的正确性，如果不正确，请说明产生错误的原因。
+
+    \paragraph{BinarySearch}
+
+    \subparagraph{原始二分查找算法}
+
+    ~
+
+\begin{small}
+\begin{lstlisting}[language=java]
+int BinarySearch(int arr[], const int x, int n) {
+    int left = 0, right = n -1;
+    while(left <= right) {
+        int middle = (left + right) / 2;
+        if(x == arr[middle]) return middle;
+        if(x > arr[middle]) left = middle + 1;
+        else right = middle - 1;
+    }
+    return -1;
+}
+\end{lstlisting}
+\end{small}
+
+    \subparagraph{改进二分查找算法}
+
+    ~
+
+\begin{small}
+\begin{lstlisting}[language=java]
+package binarysearch;
+
+public class BinarySearch {
+	public int rank(int key, int[] a) {
+        int lo = 0;
+        int hi = a.length - 1;
+        //lo represent low, hi represent high
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            //use this form instead of (hi + lo)/2 because it can prevent overflow
+            if(key < a[mid]) hi = mid - 1;
+            else if(key > a[mid]) lo = mid + 1;
+            else return mid;
+        }
+        return -1;
+    }
+}
+\end{lstlisting}
+\end{small}
+
+    \paragraph{测试代码}
+
+    ~
+
+\begin{small}
+\begin{lstlisting}[language=java]
+package binarysearch;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class BinarySearchTest {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		BinarySearch bs = new BinarySearch();
+		
+		int a[] = {11,23,54,68,15,18,19,56,35};
+		Arrays.sort(a);
+		
+		System.out.println("The sorted array is: ");
+		for(int i = 0; i < a.length; i++) {
+			System.out.print(a[i] + "  ");
+		}
+		System.out.println();
+		
+		System.out.print("Please input the searching number: ");
+		int key = sc.nextInt();
+		System.out.print("The index of the it is: " + bs.rank(key, a));
+	}
+}
+\end{lstlisting}
+\end{small}
+
+    \paragraph{BinarySearch1}
+
+    ~
+
+    \subparagraph{代码呈现}
+
+    ~
+
+    \begin{small}
+\begin{lstlisting}[language=java]
+int BinarySearch(int arr[], const int x, int n) {
+    int left = 0, right = n -1;
+    while(left <= right) {
+        int middle = (left + right) / 2;
+        if(x == arr[middle]) return middle;
+        if(x > arr[middle]) left = middle;
+        else right = middle;
+    }
+    return -1;
+}
+\end{lstlisting}
+\end{small}
+
+    \paragraph{正确性分析}
+
+    ~
+
+    由于在查找的过程中没left和right的移动，因此当程序查找失败时会进入死循环。
+
+    \paragraph{BinarySearch2}
+
+    ~
+
+    原因与上述问题大致相同，仍然为游标设置不正确，在程序运行时会产生最大位返回错误。
+
+    \paragraph{BinarySearch3}
+
+    ~
+
+    原因与上述问题大致相同，仍然为游标设置不正确，在程序运行时会产生最大位返回错误。
+
+    \paragraph{BinarySearch4}
+
+    ~
+
+    游标设置不当，如果查找失败程序会陷入死循环。
+
+    \paragraph{BinarySearch5}
+
+    ~
+
+    该程序正确。
+
+    \paragraph{BinarySearch6}
+
+    ~
+
+    游标设置不当，在程序运行时会产生最大位返回错误。
+
+    \paragraph{BinarySearch7}
+
+    ~
+
+    游标设置不当，如果查找失败则程序会陷入死循环。
+
+    \subsection{二分搜索改写}
+    \paragraph{题目描述}
+
+    ~
+
+    设a[0:n-1]是已经排好序的数组。请改写二分搜索算法，使得当搜索元素x不在数组中时，返回小于x的最大元素位置i和大于x的最小元素位置j。当搜索元素在数组中时，i与j相同，均为x在数组中是位置。
+
+    \paragraph{题目分析}
+
+    ~
+
+    此题的实现方式是在二分搜索的基础之上，将index的左右两个值(如果查找失败)或者是index对应值返回并输出。
+
+    \paragraph{算法描述与实现}
+
+    ~
+
+    \begin{small}
+    \begin{lstlisting}[language=java]
+package modefiedbinarysearch;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ModefiedBinarySearch {
+    public static int[] ExBinarySearch(int[] a, int index, int left, int right) {
+        int b[] = {0,0};
+        int middle;
+        while(left <= right) {
+            middle = (left + right) / 2;
+            if(index == a[middle]) {b[0] = middle; b[1] = middle; return b;}
+            if(index > a[middle]) left = middle + 1;
+            else right = middle - 1;
+        }
+        b[0] = left - 1; b[1] = right + 1;
+        return b;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int a[] = {0,1,2,3,7,8,9};
+        System.out.println("Please input the number that you want to search");
+        int index = in.nextInt();
+        int left = a[0], right = a[a.length-1];
+        //System.out.println(index);
+        System.out.println(Arrays.toString(ExBinarySearch(a, index, left, right)));
+    }
+}
+    \end{lstlisting}
+    \end{small}
+
+    \paragraph{反思拓展}
+
+    ~
+
+    此题为何在输出的数字在最大值和最小值范围之内，程序可以正常运行，而当输入的index的值大于最大值时，会报错呢？？留待修补。
+
+    \subsection{大数乘法优化}
+    \paragraph{题目描述}
+
+    ~
+
+    给定两个大整数u和v，他们分别有m和n位数字，且m<n。用通常的乘法求uv的值需要O(mn)的时间，可以将u和v均看作是有n位数字的大整数，用本章中介绍的分治法，在$O(n^{log3})$ 时间内计算uv的值。当m比n小很多时，用这种方法显然效率不高。试设计一个算法，在上述情况下用$O(nm^ {log(1.5)})$时间求出uv的值。
+
+    \paragraph{算法描述与实现}
+
+    ~
+
+    \subparagraph{书本方法的时间复杂度实现}
+
+    ~
+
+\begin{small}
+\begin{lstlisting}[language=java]
+package bigintmultiply;
+
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Big Int Multiply
+ * @author William Yi
+ * Created on 3/18, 2017
+ */
+
+public class BigIntMultiply {
+    //如果两个数的规模是这个级别的，那么我们直接进行相乘
+    private final static int SIZE = 4;
+
+    // 此方法要保证入参len为X、Y的长度最大值
+    private static String bigIntMultiply(String X, String Y, int len) {
+        // 最终返回结果
+        String str = "";
+        // 补齐X、Y，使之长度相同
+        X = formatNumber(X, len);
+        Y = formatNumber(Y, len);
+
+        // 少于4位数，可直接计算
+        if (len <= SIZE)   return "" + (Integer.parseInt(X) * Integer.parseInt(Y));
+
+        // 将X、Y分别对半分成两部分
+        int len1 = len / 2;
+        int len2 = len - len1;
+        String A = X.substring(0, len1);
+        String B = X.substring(len1);
+        String C = Y.substring(0, len1);
+        String D = Y.substring(len1);
+
+        // 乘法法则，分块处理
+        int lenM = Math.max(len1, len2);
+        String AC = bigIntMultiply(A, C, len1);
+        String AD = bigIntMultiply(A, D, lenM);
+        String BC = bigIntMultiply(B, C, lenM);
+        String BD = bigIntMultiply(B, D, len2);
+
+        // 处理BD，得到原位及进位
+        String[] sBD = dealString(BD, len2);
+        // 处理AD+BC的和
+        String ADBC = addition(AD, BC);
+        // 加上BD的进位
+        if (!"0".equals(sBD[1]))  ADBC = addition(ADBC, sBD[1]);
+        // 得到ADBC的进位
+        String[] sADBC = dealString(ADBC, lenM);
+        // AC加上ADBC的进位
+        AC = addition(AC, sADBC[1]);
+        // 最终结果
+        str = AC + sADBC[0] + sBD[0];
+        return str;
+    }
+    // 两个数字串按位加
+    private static String addition(String ad, String bc) {
+        // 返回的结果
+        String str = "";
+        // 两字符串长度要相同
+        int lenM = Math.max(ad.length(), bc.length());
+        ad = formatNumber(ad, lenM);
+        bc = formatNumber(bc, lenM);
+        // 按位加，进位存储在temp中
+        int flag = 0;
+        // 从后往前按位求和
+        for (int i = lenM - 1; i >= 0; i--)  {
+            int t =  flag + Integer.parseInt(ad.substring(i, i + 1))
+                     + Integer.parseInt(bc.substring(i, i + 1));
+
+            // 如果结果超过9，则进位当前位只保留个位数
+            if (t > 9)  { flag = 1; t = t - 10; }
+            else { flag = 0; }
+
+            // 拼接结果字符串
+            str = "" + t + str;
+        }
+        if (flag != 0) str = "" + flag + str;
+        return str;
+    }
+    // 处理数字串，分离出进位；
+    // String数组第一个为原位数字，第二个为进位
+    private static String[] dealString(String ac, int len1) {
+        String[] str = {ac, "0"};
+        if (len1 < ac.length()) {
+            int t = ac.length() - len1;
+            str[0] = ac.substring(t);
+            str[1] = ac.substring(0, t);
+        }
+        else  {
+            // 要保证结果的length与入参的len一致，少于则高位补0
+            String result = str[0];
+            for (int i = result.length(); i < len1; i++) result = "0" + result;
+            str[0] = result;
+        }
+        return str;
+    }
+    // 乘数、被乘数位数对齐
+    private static String formatNumber(String x, int len) {
+        while (len > x.length())  x = "0" + x;
+        return x;
+    }
+
+    public static void main(String[] args)  {
+        // 正则表达式：不以0开头的数字串
+        String pat = "^[1-9]\\d*$";
+        Pattern p = Pattern.compile(pat);
+        // 获得乘数A
+        System.out.println("Please input A(not start with 0)：");
+        Scanner sc = new Scanner(System.in);
+        String A = sc.nextLine();
+        Matcher m = p.matcher(A);
+        if (!m.matches()) {
+            System.out.println("Illegal Number!");
+            return;
+        }
+        // 获得乘数B
+        System.out.println("Please input B(not start with 0)");
+        sc = new Scanner(System.in);
+        String B = sc.nextLine();
+        m = p.matcher(B);
+        if (!m.matches()) {
+            System.out.println("Illegal Number!");
+            return;
+        }
+        System.out.println(A + " * " + B + " = "
+            + bigIntMultiply(A, B, Math.max(A.length(), B.length())));
+    }
+}
+\end{lstlisting}
+\end{small}
+
+\subparagraph{测试结果}
+
+~
+
+\begin{small}
+\begin{lstlisting}[language=java]
+Please input A(not start with 0)：
+456798615674964
+Please input B(not start with 0)
+4561418154748
+456798615674964 * 4561418154748 = 2083649498603535117421329072
+\end{lstlisting}
+\end{small}
+
+    \subparagraph{拓展深化的时间复杂度实现}
+
+    ~
+
+    在m比n小很多时，将v分为n/m段，其中每段的长度为m位。计算uv需要n/m次m位乘法运算。每次m位乘法可以用分治法进行实现，耗时为$O(m^ {log3})$。因此，算法所需的计算时间为$O(\frac{n}{m}m^{log3}$ = $O(nm^{log1.5})$
+
+    \paragraph{反思拓展}
+
+    ~
+
+    在实现该大整数乘法的时候，使用到的是正则式的匹配，因此对于java的理解可以说又上了一个台阶，虽然这部分只需要考察基本思想，但是对于编程能力的提升以及思维的拓展不失为一种较好的方式。
+
+    \subsection{矩阵相乘算法设计}
+
+    \paragraph{题目描述}
+
+    ~
+
+    对任何非零偶数n，总可以找到奇数m和正整数k，使得$n=m2^k$。为了求出两个n阶矩阵的乘积，可以把一个n阶矩阵分成m*m个子矩阵，每个矩阵都有$2^k\times2^k$个元素。当需要求$2^k\times2^k$个子矩阵的积时，使用Strassen算法。设计一个传统方法和Strassen算法相结合的矩阵相乘算法，对任何偶数n，都可以求出两个n阶矩阵的乘积。并分析算法的时间复杂性。
+
+    \paragraph{算法分析与设计}
+
+    ~
+
+    用传统方法计算两个m阶矩阵的乘积需要计算 $O(n^3)$ 次两个 $2^k\times2^k$ 矩阵的乘积。用Strassen矩阵乘法计算两个 $2^k\times2^k$ 矩阵的乘积需要的时间为$O(7^k)$。因此计算的整体时间为$O(7^k m^3)$。
+
+    \subsection{多项式分治}
+
+    \paragraph{题目描述}
+
+    ~
+
+    设$P(x) = a_0 + a_1x + ... + a_dx^d$是一个d次多项式。假设已有一个算法能在$O(i)$时间内计算一个i次多项式与一个一次多项式的乘积，以及一个算法能在O(ilogi)时间内计算两个i次多项式的乘积。对于任意给定的d个整数$n_1,n_2,...n_d$。用分治法设计一个有效的算法，计算出满足$P(n_1) = P(n_2) = .. = P(n_d) = 0$且最高次项系数为1的d次多项式P(x),并分析算法的效率。
+
+    \paragraph{算法分析与设计}
+
+    ~
+
+    此题的基本思路是已知线性方程组的解的情况下，反求其相关参数的情况。因此需要至少$O(n^2)$的时间复杂度。但是该过程如何通过递归进行实现了，此处有待商榷。
+
+    \subsection{线性空间子数组换位}
+    \paragraph{题目描述}
+
+    ~
+
+    设a[0:n-1]是有n个元素的数组，k(0<=k<+n-1)是一个非负整数。试设计一个算法将子数组a[0:k-1]与a[k:n-1]换位。要求算法在最坏情况下耗时O(n),且只用到O(1)的辅助空间。
+
+    \paragraph{算法分析与设计}
+
+    ~
+
+\begin{small}
+\begin{lstlisting}[language=java]
+public class ReversePartitialArray {
+    void reversePartitialArray(int arr[], int k) {
+        int n = arr.length();
+        int len = max(k, n-k);
+        for(int i = 0; i < len; i++) {
+            int tmp = arr[i];
+            swap(a[i],a[i+k]);
+        }
+    }
+}
+\end{lstlisting}
+\end{small}
+
+    此处如何设计出一个较好的方法在线性时间之内完成相关的移位过程？
+
+    \subsection{Gray码构造}
+    \paragraph{题目描述}
+
+    ~
+
+    Gray 码是一个长度为$2^n$的序列，序列中无相同元素，每个元素都是长度为n位的(0,1)串，相邻元素恰好只有一位不同，用分治策略设计一个算法对任意的n构造相应的gray码。
+
+   \paragraph{算法分析与设计}
+
+   ~
+
+   将Gray码的序列存储在数组之中，然后通过相关操作进行遍历。
+
+\begin{small}
+\begin{lstlisting}[language=java]
+package gray;
+
+import java.util.Scanner;
+
+public class Gray {
+	static int[] arr = new int[100];
+	
+	static void gray(int n) {
+		if(n == 1) {arr[1] = 0; arr[2] = 1; return;}
+		gray(n-1);
+		for(int k = 2^(n-1),i = k; i > 0; i--) a[2*k-i+1] = a[i] + k;
+		System.out.println();
+	}
+	
+	static void out(int n) {
+		char[] str = new char[32];
+		int m = 2^n;
+		for(int i = 1; i <= m; i++) {
+			//将arr[i]转换为2进制的字符串传给str
+			itoa(arr[i],str,2);
+			int s = strlen(str);
+			for(int j = 0; i < n-s; j++)
+				System.out.print(0);
+			System.out.println();
+			
+		}
+	}
+	
+	public static void main(String[] args) {
+		int n = 0;
+		Scanner sc = new Scanner(System.in);
+		
+		while(sc.nextInt()!= 0) {
+			int b = 2^(n-1);
+			gray(n);
+			out(n);
+		}
+	}
+}
+\end{lstlisting}
+\end{small}
+
+   \subsection{有重复元素的排列问题}
+   \paragraph{题目描述}
+
+   ~
+
+   设$R={r_1,r_2,...,r_n}$是要进行排列的n个元素。其中元素$r_1,r_2,...,r_n$可能相同。试设计一个算法，列出R的所有不同排列。
+
+   从算法设计的角度分析即是：给定n以及待排列的n个元素，计算出这n个元素的所有不同排列。
+
+   \paragraph{数据输入与结果输出}
+
+   ~
+
+   \subparagraph{数据输入}
+
+   ~
+
+   在指定文件中，文件的第一行是元素个数n，接下来的一行是待排列的n个元素。
+
+   \paragraph{结果输出}
+
+   ~
+
+   将计算出的n个元素的所有不同排列输出到文件中，文件的最后一行中的数是排列的总数。
+
+   \subsection{试题分析}
+
+   ~
+
+   此题在之前全排列代码的基础之上增加了HasSame进行输出字符串之中是否有重复元素的比较
+
+   \subsection{代码实现}
+
+   ~
+
+\begin{small}
+\begin{lstlisting}[language=java]
+package robustperm;
+
+import java.util.Scanner;
+
+public class RobustPerm {
+	void robustPerm(char arr[], int start, int end) {
+		if(start==end) {
+			for(int i = 0; i <= start; i++) System.out.println(arr[i]);
+		} else{
+			for(int i = start; i <= end; i++) {
+				if(HasSame(arr, start, end)) {
+					Swap(arr[start], arr[i]);
+					robustPerm(arr, start + 1, end);
+					Swap(arr[start], arr[i]);
+				}
+			}
+		}
+	}
+	
+	void Swap(char a, char b) {
+		char tmp;
+		tmp = a;
+		a = b;
+		b = tmp;
+	}
+	
+	boolean HasSame(char arr[], int start, int end) {
+		if(start <= end)
+			for(int k = start; k < end; k++)
+				if(arr[k] == arr[end]) return false;
+		return true;
+	}
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Please input the string you want to permutaion:");
+		final char[] arr = new char[100];
+		for(int i = 0; i < 100; i++) {
+			arr[i] = '0';
+		}
+		String str = sc.next();
+		for(int i = 0; i < str.length(); i++) {
+			arr[i] = str.charAt(i);
+		}
+		int start = 0, end = str.length();
+		robustPerm(arr[], start, end);
+	}
+}
+\end{lstlisting}
+\end{small}
+
+    \paragraph{反思总结}
+
+    ~
+
+    在最后一个arr[]的调用时出现的一些小问题如何进行修正可以达到较好的效果？
+
+    \section{参考资料}
+    1. What's the simplest way to print a Java array?. http://stackoverflow.
+    com/questions/409784/whats-the-simplest-way-to-print-a-java-array
+
+    2. Large Int Multiply and java implementations. http://blog.csdn.net
+    /oh\_maxy/article/details/10903929
+
+    3. Thomas H.Cormen, Charles E.Leiserson, Ronald L.Rivest, Clifford Stein. Introduction to Algorithms.
+\end{document} 
